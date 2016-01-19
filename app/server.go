@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	morsepkg "github.com/gurkslask/morse"
 	"html/template"
 	"net/http"
 )
@@ -19,7 +20,7 @@ func Sensorhandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func MorseInputHandler(w http.ResponseWriter, r *http.Request) {
-	morsevar := r.FormValue("body")
+	morsevar := morsepkg.StringtoMorse(r.FormValue("body"))
 	fmt.Println(r.FormValue("body"))
 	t, _ := template.ParseFiles("static/morse.html")
 	t.Execute(w, morsevar)
