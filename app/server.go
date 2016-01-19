@@ -1,28 +1,31 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
 )
 
-type Page interface {
-	Title string,
-	tmpl string
+type Sensor struct {
+	Name  string
+	Value float64
 }
 
-func renderTemplate(w http.ResponseWriter, tmpl string, p *Page){
-	t, _ := template.ParseFiles("static/" + p.tmpl + ".html")
-	t.Execute(w, r)
+func Sensorhandler(w http.ResponseWriter, r *http.Request) {
+	sensor := Sensor{Name: r.URL.Path[len("/sensor/"):], Value: 42.0}
+	fmt.Println(sensor.Name)
+	t, _ := template.ParseFiles("static/sensor.html")
+	t.Execute(w, sensor)
+}
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	t, _ := template.ParseFiles("static/home.html")
 	test := "hejsan svejsan"
-	if test == "a" {
-	}
-	t.Execute(w, r)
+	t.Execute(w, test)
 }
 
 func main() {
-	http.HandleFunc("/", handler)
+	http.HandleFunc("/home/", handler)
+	http.HandleFunc("/sensor/", Sensorhandler)
 	http.ListenAndServe(":8042", nil)
 }
