@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	morsepkg "github.com/gurkslask/morse"
+	morsepkg "github.com/gurkslask/goHMI/morse"
 	"html/template"
 	"net/http"
 )
