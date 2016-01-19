@@ -27,10 +27,11 @@ func main() {
 }
 
 func handleConnection(conn net.Conn) {
+	mockvalues := map[string]int{"test1": 42, "test2": 43}
 	bufr := bufio.NewReader(conn)
 	buf := make([]byte, 1024)
 	for {
-		readbytes, err := bufr.Read(buf)
+		readBytes, err := bufr.Read(buf)
 
 		if err != nil {
 			log.Fatalf("Error: %s", err)
