@@ -18,6 +18,13 @@ func Sensorhandler(w http.ResponseWriter, r *http.Request) {
 	t.Execute(w, sensor)
 }
 
+func MorseInputHandler(w http.ResponseWriter, r *http.Request) {
+	morsevar := r.FormValue("body")
+	fmt.Println(r.FormValue("body"))
+	t, _ := template.ParseFiles("static/morse.html")
+	t.Execute(w, morsevar)
+}
+
 func handler(w http.ResponseWriter, r *http.Request) {
 	t, _ := template.ParseFiles("static/home.html")
 	test := "hejsan svejsan"
@@ -27,5 +34,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/home/", handler)
 	http.HandleFunc("/sensor/", Sensorhandler)
+	http.HandleFunc("/morse/", MorseInputHandler)
 	http.ListenAndServe(":8042", nil)
 }
